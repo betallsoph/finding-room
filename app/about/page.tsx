@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { MessageCircle, Search, Home, ArrowRight } from "lucide-react";
 import MainHeader from "../components/MainHeader";
 import ShareFooter from "../components/ShareFooter";
 
@@ -51,65 +53,107 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* How We Work Section */}
-      <section className="py-16 md:py-20 border-t-2 border-black">
-        <div className="mx-auto max-w-7xl px-6">
-          <h2 className="mb-12 text-center text-3xl font-bold sm:text-4xl md:text-5xl">
-            Cách chúng tôi hoạt động
-          </h2>
+      {/* ── How it works ──────────────────────────────────── */}
+      <section id="how-it-works" className="section bg-white border-t border-[#f0ede8]">
+        <div className="wrapper">
+          <div className="text-center mb-14">
+            <h2 className="mb-3">Cách hoạt động</h2>
+            <p className="text-[#78716c] max-w-lg mx-auto">Chỉ 3 bước đơn giản để tìm được phòng ưng ý</p>
+          </div>
 
-          <div className="grid gap-8 md:grid-cols-2">
-            <div className="card bg-blue-100 p-8">
-              <h3 className="mb-4 text-2xl font-bold flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-black bg-white text-lg font-bold">
-                  1
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              {
+                step: "01",
+                icon: <MessageCircle className="w-7 h-7" style={{ color: "#4f46e5" }} />,
+                bg: "#eef2ff",
+                title: "Tạo tài khoản",
+                desc: "Đăng ký miễn phí trong 1 phút bằng email hoặc Google.",
+                time: "⏱ 1 phút",
+              },
+              {
+                step: "02",
+                icon: <Search className="w-7 h-7" style={{ color: "#f43f5e" }} />,
+                bg: "#fff1f2",
+                title: "Đăng tin hoặc tìm kiếm",
+                desc: "Chủ nhà đăng tin cho thuê. Người thuê tìm kiếm hoặc đăng yêu cầu.",
+                time: "⏱ 5 phút",
+              },
+              {
+                step: "03",
+                icon: <Home className="w-7 h-7" style={{ color: "#f59e0b" }} />,
+                bg: "#fef3c7",
+                title: "Liên hệ trực tiếp",
+                desc: "Trao đổi qua điện thoại hoặc Zalo. Không trung gian, không phí.",
+                time: "⏱ Ngay lập tức",
+              },
+            ].map(({ step, icon, bg, title, desc, time }) => (
+              <div key={step}
+                className="rounded-2xl p-7 border border-[#e8e4de] bg-white transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)]"
+                style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: bg }}>
+                    {icon}
+                  </div>
+                  <span className="text-3xl font-black text-[#e7e5e4]">{step}</span>
+                </div>
+                <h3 className="mb-2 text-lg font-semibold">{title}</h3>
+                <p className="text-sm text-[#78716c] mb-4 leading-relaxed">{desc}</p>
+                <span className="inline-block text-xs font-medium px-3 py-1 rounded-full"
+                  style={{ background: bg, color: "#57534e" }}>
+                  {time}
                 </span>
-                Xác minh người dùng
-              </h3>
-              <p className="text-zinc-700 leading-relaxed">
-                Mỗi tài khoản đều được xác minh thông qua email và số điện thoại.
-                Chúng tôi ưu tiên hiển thị những hồ sơ có đầy đủ thông tin và ảnh thật.
-              </p>
-            </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="card bg-pink-100 p-8">
-              <h3 className="mb-4 text-2xl font-bold flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-black bg-white text-lg font-bold">
-                  2
-                </span>
-                Matching thông minh
-              </h3>
-              <p className="text-zinc-700 leading-relaxed">
-                Dựa trên lối sống, thói quen và sở thích, chúng tôi giúp bạn tìm được
-                những roommate tiềm năng phù hợp nhất.
-              </p>
-            </div>
+      {/* ── Why choose us ─────────────────────────────────── */}
+      <section id="why-choose-us" className="section" style={{ background: "#faf9f7" }}>
+        <div className="wrapper">
+          <div className="text-center mb-14">
+            <h2 className="mb-3">Tại sao chọn FindingRoom?</h2>
+            <p className="text-[#78716c] max-w-lg mx-auto">Được xây dựng để kết nối chủ nhà và người thuê đơn giản nhất</p>
+          </div>
 
-            <div className="card bg-purple-100 p-8">
-              <h3 className="mb-4 text-2xl font-bold flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-black bg-white text-lg font-bold">
-                  3
-                </span>
-                Kết nối trực tiếp
-              </h3>
-              <p className="text-zinc-700 leading-relaxed">
-                Không qua trung gian, không phí môi giới. Bạn được liên hệ trực tiếp
-                với chủ phòng hoặc người tìm roommate.
-              </p>
-            </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {[
+              {
+                img: "/assets/easymatch.png",
+                accent: "#4f46e5",
+                title: "Tìm nhanh. Chính xác.",
+                desc: "Lọc theo loại hình, khu vực, giá cả. Tìm đúng phòng trong vài phút.",
+              },
+              {
+                img: "/assets/verify.png",
+                accent: "#f43f5e",
+                title: "Chính chủ. Đáng tin cậy.",
+                desc: "Chủ nhà đăng trực tiếp. Không qua trung gian, trao đổi thẳng để có giá tốt nhất.",
+              },
+              {
+                img: "/assets/simple.png",
+                accent: "#f59e0b",
+                title: "Đơn giản. Miễn phí.",
+                desc: "Đăng tin trong 5 phút. Hoàn toàn miễn phí. Không cần kỹ năng kỹ thuật.",
+              },
+            ].map(({ img, accent, title, desc }) => (
+              <div key={title}
+                className="rounded-2xl p-7 bg-white border border-[#e8e4de] flex flex-col items-start gap-5 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)]"
+                style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
+                <Image src={img} alt={title} width={80} height={80} className="w-20 h-20 object-contain" />
+                <div>
+                  <h3 className="mb-2 text-lg font-semibold" style={{ color: accent }}>{title}</h3>
+                  <p className="text-sm text-[#78716c] leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
 
-            <div className="card bg-green-100 p-8">
-              <h3 className="mb-4 text-2xl font-bold flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-black bg-white text-lg font-bold">
-                  4
-                </span>
-                Hỗ trợ 24/7
-              </h3>
-              <p className="text-zinc-700 leading-relaxed">
-                Đội ngũ hỗ trợ luôn sẵn sàng giải đáp thắc mắc và hỗ trợ bạn
-                trong quá trình tìm kiếm.
-              </p>
-            </div>
+          <div className="mt-10 text-center">
+            <Link href="/about" className="btn-secondary inline-flex items-center gap-2">
+              Tìm hiểu thêm <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>

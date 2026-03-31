@@ -1,15 +1,16 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import {
-  User,
-  onAuthStateChanged,
-  signInWithPopup,
-  GoogleAuthProvider,
-  signOut
-} from "firebase/auth";
-import { auth } from "../lib/firebase";
-import { getUserProfile } from "../data/users";
+// import {
+//   User,
+//   onAuthStateChanged,
+//   signInWithPopup,
+//   GoogleAuthProvider,
+//   signOut
+// } from "firebase/auth";
+import type { User } from "firebase/auth"; // Keep type for TS
+// import { auth } from "../lib/firebase";
+// import { getUserProfile } from "../data/users";
 
 interface AuthContextType {
   user: User | null;
@@ -24,7 +25,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const googleProvider = new GoogleAuthProvider();
+// const googleProvider = new GoogleAuthProvider();
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -32,66 +33,62 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isProfileComplete, setIsProfileComplete] = useState(false);
   const [profileChecked, setProfileChecked] = useState(false);
 
+  // Mock user for development
+  const MOCK_USER: User = {
+    uid: "mock-user-123",
+    email: "demo@roomieverse.com",
+    displayName: "Người dùng Demo",
+    photoURL: "https://api.dicebear.com/7.x/avataaars/svg?seed=Felix",
+    emailVerified: true,
+    isAnonymous: false,
+    metadata: {},
+    providerData: [],
+    refreshToken: "",
+    tenantId: null,
+    delete: async () => { },
+    getIdToken: async () => "",
+    getIdTokenResult: async () => ({} as any),
+    reload: async () => { },
+    toJSON: () => ({}),
+    phoneNumber: null,
+    providerId: "firebase",
+  };
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setUser(user);
-      setIsLoading(false);
-
-      if (user) {
-        // Check if profile is complete
-        try {
-          const profile = await getUserProfile(user.uid);
-
-          // If no profile exists in database, this is a new/reset user
-          // Clear the reminder dismissal so the modal shows again
-          if (!profile) {
-            localStorage.removeItem('profileReminderDismissed');
-          }
-
-          const complete = !!(profile?.gender && profile?.birthYear && profile?.occupation);
-          setIsProfileComplete(complete);
-        } catch (error) {
-          console.error("Error checking profile:", error);
-          setIsProfileComplete(false);
-        }
-      } else {
-        setIsProfileComplete(false);
-      }
-      setProfileChecked(true);
-    });
-
-    return () => unsubscribe();
+    // Check local storage specific key to simulate persistence
+    const storedAuth = localStorage.getItem("roomieverse_mock_auth");
+    if (storedAuth === "true") {
+      setUser(MOCK_USER);
+    }
+    setIsLoading(false);
+    setProfileChecked(true); // Always true for mock
+    setIsProfileComplete(true); // Always true for mock for now
   }, []);
 
   const checkProfileComplete = async (): Promise<boolean> => {
-    if (!user) return false;
-    try {
-      const profile = await getUserProfile(user.uid);
-      const complete = !!(profile?.gender && profile?.birthYear && profile?.occupation);
-      setIsProfileComplete(complete);
-      return complete;
-    } catch (error) {
-      console.error("Error checking profile:", error);
-      return false;
-    }
+    // Always return true for mock environment to let user pass
+    return true;
   };
 
   const loginWithGoogle = async () => {
-    try {
-      await signInWithPopup(auth, googleProvider);
-    } catch (error) {
-      console.error("Error signing in with Google:", error);
-      throw error;
-    }
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        setUser(MOCK_USER);
+        localStorage.setItem("roomieverse_mock_auth", "true");
+        setIsProfileComplete(true);
+        resolve();
+      }, 800);
+    });
   };
 
   const logout = async () => {
-    try {
-      await signOut(auth);
-    } catch (error) {
-      console.error("Error signing out:", error);
-      throw error;
-    }
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        setUser(null);
+        localStorage.removeItem("roomieverse_mock_auth");
+        resolve();
+      }, 500);
+    });
   };
 
   if (isLoading) {

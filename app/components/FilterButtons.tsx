@@ -1,57 +1,47 @@
 "use client";
 
-import { motion } from "framer-motion";
-
-type FilterMode = "have-room" | "find-partner";
+import { RentalType } from "../data/types";
 
 interface FilterButtonsProps {
-  mode: FilterMode;
-  onModeChange: (mode: FilterMode) => void;
+  mode: RentalType;
+  onModeChange: (mode: RentalType) => void;
 }
 
-export default function FilterButtons({
-  mode,
-  onModeChange,
-}: FilterButtonsProps) {
-  return (
-    <div className="space-y-6">
-      {/* Mode Tabs */}
-      <motion.div
-        className="inline-flex rounded-xl border-2 border-black bg-white p-1 sm:p-1.5 text-sm sm:text-base font-bold tracking-wide shadow-[3px_3px_0_0_#000]"
-        whileTap={{ scale: 1.05 }}
-        transition={{ type: "spring", stiffness: 400, damping: 17 }}
-      >
-        <motion.button
-          type="button"
-          onClick={() => onModeChange("have-room")}
-          whileTap={{ scale: 0.90 }}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          className={`rounded-lg px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-3.5 transition-colors duration-200 cursor-pointer ${mode === "have-room"
-            ? "bg-blue-300 text-black border-2 border-black"
-            : "text-black border-2 border-transparent hover:bg-zinc-100"
-            }`}
-        >
-          Đã có phòng
-        </motion.button>
-        <motion.button
-          type="button"
-          onClick={() => onModeChange("find-partner")}
-          whileTap={{ scale: 0.90 }}
-          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          className={`rounded-lg px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-3.5 transition-colors duration-200 cursor-pointer ${mode === "find-partner"
-            ? "bg-blue-300 text-black border-2 border-black"
-            : "text-black border-2 border-transparent hover:bg-zinc-100"
-            }`}
-        >
-          Chưa có phòng
-        </motion.button>
-      </motion.div>
+const rentalTypeOptions: { value: RentalType; label: string; desc: string }[] = [
+  { value: "nha-tro",   label: "Nhà trọ",        desc: "Phòng trọ, nhà trọ bình dân" },
+  { value: "can-ho",    label: "Căn hộ",          desc: "Chung cư, căn hộ mini" },
+  { value: "nha-rieng", label: "Nhà riêng",       desc: "Nhà nguyên căn, nhà phố" },
+  { value: "phong-dv",  label: "Phòng dịch vụ",   desc: "Bao điện nước, dọn phòng" },
+];
 
-      {/* Mode Description */}
-      <p className="text-sm text-zinc-600">
-        {mode === "have-room"
-          ? "Bạn có phòng/căn hộ sẵn, tìm người ở cùng"
-          : "Bạn chưa có phòng, tìm bạn cùng đi thuê"}
+export default function FilterButtons({ mode, onModeChange }: FilterButtonsProps) {
+  return (
+    <div className="space-y-3">
+      <div className="inline-flex flex-wrap gap-2 p-1.5 rounded-2xl"
+        style={{ background: "rgba(255,255,255,0.6)", backdropFilter: "blur(8px)",
+          border: "1px solid rgba(255,255,255,0.9)", boxShadow: "0 2px 12px rgba(0,0,0,0.07)" }}>
+        {rentalTypeOptions.map((opt) => {
+          const active = mode === opt.value;
+          return (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => onModeChange(opt.value)}
+              className="rounded-xl px-5 py-2.5 text-sm font-medium transition-all duration-150 cursor-pointer"
+              style={active
+                ? { background: "#4f46e5", color: "#fff",
+                    boxShadow: "0 2px 10px rgba(79,70,229,0.30)" }
+                : { background: "transparent", color: "#57534e" }
+              }
+            >
+              {opt.label}
+            </button>
+          );
+        })}
+      </div>
+
+      <p className="text-sm" style={{ color: "#78716c" }}>
+        {rentalTypeOptions.find(o => o.value === mode)?.desc}
       </p>
     </div>
   );

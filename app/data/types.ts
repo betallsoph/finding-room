@@ -1,24 +1,27 @@
-// Category types
-export type RoommateType = "have-room" | "find-partner";
-export type PropertyType = "house" | "apartment";
+// Rental type (for cho-thue listings)
+export type RentalType = "nha-tro" | "can-ho" | "nha-rieng" | "phong-dv";
+
+// Listing category
+export type ListingCategory = "cho-thue" | "tim-phong";
 
 // Listing status
 export type ListingStatus = "active" | "hidden" | "deleted";
 
-// Roommate preferences interface
-export interface RoommatePreferences {
+// Legacy types kept for compatibility
+export type RoommateType = "have-room" | "find-partner";
+export type PropertyType = "house" | "apartment";
+
+// Landlord's preferences for tenants (on cho-thue listings)
+export interface TenantPreferences {
   gender?: string[]; // ["male", "female", "any"]
-  status?: string[]; // ["student", "worker", "other"]
-  statusOther?: string;
-  schedule?: string[]; // ["early", "late", "flexible"]
-  cleanliness?: string[]; // ["very-clean", "normal", "relaxed"]
-  habits?: string[]; // ["no-smoke", "no-alcohol", "flexible"]
-  pets?: string[]; // ["no-pets", "cats-ok", "dogs-ok", "any-pets"]
-  moveInTime?: string[]; // ["early-month", "end-month", "any", "asap"]
+  occupation?: string[]; // ["student", "worker", "any"]
+  pets?: string[]; // ["no-pet", "pet-ok", "any"]
+  smoking?: string[]; // ["no-smoke", "smoke-ok", "any"]
+  cooking?: string[]; // ["no-cook", "cook-ok", "any"]
   other?: string;
 }
 
-// Cost structure for have-room listings
+// Cost structure for rental listings
 export interface RoomCosts {
   rent?: string;
   deposit?: string;
@@ -31,7 +34,20 @@ export interface RoomCosts {
   other?: string;
 }
 
-// Listing interface
+// Legacy roommate preferences (kept for backward compat)
+export interface RoommatePreferences {
+  gender?: string[];
+  status?: string[];
+  statusOther?: string;
+  schedule?: string[];
+  cleanliness?: string[];
+  habits?: string[];
+  pets?: string[];
+  moveInTime?: string[];
+  other?: string;
+}
+
+// Main listing interface
 export interface RoomListing {
   id: number | string;
   title: string;
@@ -42,30 +58,35 @@ export interface RoomListing {
   moveInDate: string;
   timeNegotiable?: boolean;
   description: string;
-  propertyTypes?: string[]; // ["house", "apartment"]
   phone: string;
   zalo?: string;
   facebook?: string;
   instagram?: string;
   postedDate: string;
-  category: "roommate" | "roomshare";
-  roommateType?: RoommateType;
+  category: ListingCategory;
+  // Rental type (for cho-thue listings)
+  rentalType?: RentalType;
+  // Legacy property type
   propertyType?: PropertyType;
+  propertyTypes?: string[];
   image?: string;
   userId?: string;
   status?: ListingStatus;
-  // New fields from create form
-  introduction?: string; // Self introduction
-  images?: string[]; // Image URLs or base64
-  amenities?: string[]; // ["ac", "wifi", "washing", ...]
-  amenitiesOther?: string; // Custom amenities
+  introduction?: string;
+  images?: string[];
+  amenities?: string[];
+  amenitiesOther?: string;
+  // Tenant preferences (landlord's requirements for tenants)
+  tenantPreferences?: TenantPreferences;
+  // Legacy roommate preferences
   preferences?: RoommatePreferences;
-  costs?: RoomCosts; // For have-room listings
-  // Room details (for have-room)
-  roomSize?: string; // m²
-  currentOccupants?: string; // Number of people currently living
-  minContractDuration?: string; // Minimum contract duration
-  // Draft status
+  costs?: RoomCosts;
+  roomSize?: string;
+  floor?: string;
+  totalFloors?: string;
+  bathrooms?: string;
+  currentOccupants?: string;
+  minContractDuration?: string;
   isDraft?: boolean;
 }
 

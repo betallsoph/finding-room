@@ -1,5 +1,5 @@
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "./firebase";
+// import { doc, getDoc } from "firebase/firestore";
+// import { db } from "./firebase";
 import { UserProfile } from "../data/types";
 import { mockUsers } from "../data/mockUsers";
 
@@ -22,29 +22,28 @@ export async function getUserProfile(userId: string): Promise<UserProfile | null
         }
     }
 
-    try {
-        const userDocRef = doc(db, USERS_COLLECTION, userId);
-        const userDoc = await getDoc(userDocRef);
-
-        if (!userDoc.exists()) {
-            return null;
-        }
-
-        const data = userDoc.data();
-        return {
-            uid: userDoc.id,
-            email: data.email || "",
-            displayName: data.displayName || "Người dùng",
-            photoURL: data.photoURL,
-            gender: data.gender,
-            birthYear: data.birthYear,
-            occupation: data.occupation,
-            lifestyle: data.lifestyle,
-            createdAt: data.createdAt,
-            updatedAt: data.updatedAt,
-        };
-    } catch (error) {
-        console.error("Error fetching user profile:", error);
-        return null;
-    }
+    // try {
+    //     const userDocRef = doc(db, USERS_COLLECTION, userId);
+    //     const userDoc = await getDoc(userDocRef);
+    //
+    //     if (!userDoc.exists()) {
+    //         return null;
+    //     }
+    //
+    //     const data = userDoc.data();
+    //     return {
+    //         uid: userDoc.id,
+    //         email: data.email || "",
+    //         displayName: data.displayName || "Người dùng",
+    //         photoURL: data.photoURL,
+    //         gender: data.gender,
+    //         birthYear: data.birthYear,
+    //         occupation: data.occupation,
+    //         lifestyle: data.lifestyle,
+    //         createdAt: data.createdAt,
+    //         updatedAt: data.updatedAt,
+    //     };
+    // } catch (error) {
+    //     console.error("Error fetching user profile:", error);
+    return null;
 }

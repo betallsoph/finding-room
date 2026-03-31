@@ -1,4 +1,4 @@
-import { RoomListing } from '../data/types';
+import { RoomListing, ListingCategory, RentalType } from '../data/types';
 
 export interface ListingFilters {
   // Price filter (in millions VND)
@@ -6,18 +6,14 @@ export interface ListingFilters {
   priceMax?: number;
   // Location filter
   location?: string;
-  // Gender preference
-  gender?: 'all' | 'male' | 'female';
   // Move-in date (ISO string)
   moveInDate?: string;
   // Keywords for text search
   keywords?: string;
   // Category
-  category?: 'roommate' | 'roomshare';
-  // Roommate type
-  roommateType?: 'have-room' | 'find-partner';
-  // Property type
-  propertyType?: 'house' | 'apartment';
+  category?: ListingCategory;
+  // Rental type (for cho-thue)
+  rentalType?: RentalType;
   // Status
   status?: 'active' | 'hidden' | 'deleted';
 }
@@ -61,13 +57,8 @@ export function filterListings(
       return false;
     }
 
-    // Roommate type filter
-    if (filters.roommateType && listing.roommateType !== filters.roommateType) {
-      return false;
-    }
-
-    // Property type filter
-    if (filters.propertyType && listing.propertyType !== filters.propertyType) {
+    // Rental type filter
+    if (filters.rentalType && listing.rentalType !== filters.rentalType) {
       return false;
     }
 

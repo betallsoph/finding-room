@@ -25,25 +25,25 @@ const googleSans = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://roomieverse.app"),
+  metadataBase: new URL("https://findingroom.app"),
   title: {
-    default: "roomieVerse | Find your next roommate",
-    template: "%s | roomieVerse",
+    default: "FindingRoom | Tìm phòng thuê dễ dàng",
+    template: "%s | FindingRoom",
   },
   description:
-    "roomieVerse connects real humans who want to share housing, matching roommates by lifestyle instead of generic listings.",
+    "FindingRoom kết nối chủ nhà và người thuê trực tiếp. Tìm phòng trọ, căn hộ, nhà riêng, phòng dịch vụ tại TP.HCM dễ dàng, không qua trung gian.",
   openGraph: {
-    title: "roomieVerse",
+    title: "FindingRoom",
     description:
-      "Match with compatible roommates, keep brokers out of the process, and turn any shared flat into a real community.",
+      "Nền tảng cho thuê phòng trực tiếp. Chủ nhà đăng tin, người thuê tìm kiếm — không môi giới, không phí hoa hồng.",
     url: "/",
-    siteName: "roomieVerse",
+    siteName: "FindingRoom",
   },
   twitter: {
     card: "summary_large_image",
-    title: "roomieVerse",
+    title: "FindingRoom",
     description:
-      "A curated roommate marketplace built for lifestyle compatibility and transparent sharing.",
+      "Tìm phòng thuê tại TP.HCM dễ dàng. Kết nối trực tiếp chủ nhà và người thuê.",
   },
 };
 

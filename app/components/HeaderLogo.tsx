@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
@@ -91,25 +90,23 @@ export default function HeaderLogo({ className = "h-28" }: HeaderLogoProps) {
   };
 
   return (
-    <Link href="/" className="relative">
-      <div
-        className="relative"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        {isHovered && sparkles.map((sparkle) => (
-          <SparkleIcon key={sparkle.id} {...sparkle} />
-        ))}
-        <Image
-          src="/logo/logo1.png"
-          alt="roomieVerse"
-          width={1000}
-          height={250}
-          className={`${className} w-auto transition-all duration-300 ${isHovered ? 'scale-125' : ''}`}
-          style={{ transform: `rotate(${rotation}deg)` }}
-          priority
-        />
-      </div>
-    </Link>
+    <div
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {isHovered && sparkles.map((sparkle) => (
+        <SparkleIcon key={sparkle.id} {...sparkle} />
+      ))}
+      <Image
+        src="/logo/logo1.png"
+        alt="roomieVerse"
+        width={1000}
+        height={250}
+        className={`${className} w-auto transition-all duration-300 ${isHovered ? 'scale-125' : ''}`}
+        style={{ transform: `rotate(${rotation}deg)` }}
+        priority
+      />
+    </div>
   );
 }

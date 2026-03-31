@@ -1,94 +1,54 @@
 "use client";
 
-import Image from "next/image";
-import NavLink from "./NavLink";
-import { useState } from "react";
+import Link from "next/link";
+
+const navLinks = [
+  { href: "/", label: "Trang chủ" },
+  { href: "/cho-thue", label: "Phòng cho thuê" },
+  { href: "/tim-phong", label: "Người tìm phòng" },
+  { href: "/about", label: "Về chúng tôi" },
+  { href: "/community", label: "Community" },
+];
 
 export default function ShareFooter() {
-  const [isEnglish, setIsEnglish] = useState(false);
-
   return (
-    <footer className="border-t-2 border-black bg-black py-4 text-white md:py-5">
+    <footer className="bg-[#eef2ff] border-t border-[#e0e7ff] text-[#57534e] py-16 sm:py-24">
       <div className="wrapper">
-        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row sm:gap-5">
-          <Image
-            src="/logo/logo2.png"
-            alt="roomieVerse"
-            width={600}
-            height={150}
-            className="h-32 w-auto -my-4"
-          />
-          <div className="flex flex-wrap justify-center gap-4 text-sm font-bold sm:gap-6">
-            <NavLink href="/">
-              Trang chủ
-            </NavLink>
-            <NavLink href="/roommate">
-              Tìm bạn ở chung
-            </NavLink>
-            <NavLink href="/roomshare">
-              Tìm phòng
-            </NavLink>
-            <NavLink href="/blog">
-              Blog
-            </NavLink>
-            <NavLink href="/about">
-              Về chúng tôi
-            </NavLink>
+        {/* Top row */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-10 mb-10">
+          {/* Brand */}
+          <div className="max-w-sm">
+            <p className="text-2xl font-bold tracking-tight text-[#1c1917]">
+              FindingRoom
+            </p>
+            <p className="mt-2 text-sm text-[#78716c] leading-relaxed">
+              Kết nối người đi thuê và chủ phòng dễ dàng, minh bạch. Không qua môi giới trung gian.
+            </p>
           </div>
+
+          {/* Links */}
+          <nav className="flex flex-wrap items-center gap-x-8 gap-y-3">
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className="text-sm font-medium hover:text-[#4f46e5] transition-colors duration-150"
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
-        {/* Horizontal divider */}
-        <div className="my-6 border-t border-white opacity-30"></div>
+        {/* Divider */}
+        <hr className="border-[#f0ede8] w-full" />
 
-        {/* Copyright and Language Switcher */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white opacity-70">
-          <div>© 2026 roomieVerse by 99%-from-AI Labs. All rights reserved.</div>
-
-          {/* Language Toggle Switch */}
-          <div className="flex items-center gap-3">
-            <span
-              key={!isEnglish ? `vi-active` : `vi-inactive`}
-              className={`text-sm font-bold transition-all ${!isEnglish ? 'opacity-100 text-blue-300 animate-[wiggle-left_0.3s_ease-in-out]' : 'opacity-50 text-white'}`}
-            >
-              Tiếng Việt
-            </span>
-
-            {/* Toggle */}
-            <button
-              key={isEnglish ? 'en' : 'vi'}
-              onClick={() => setIsEnglish(!isEnglish)}
-              className={`relative w-14 h-7 rounded-full border-2 border-white border-opacity-40 hover:opacity-90 animate-[bounce-scale_0.25s_ease-out] ${isEnglish ? 'bg-pink-200' : 'bg-blue-200'
-                }`}
-            >
-              <div
-                className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full shadow-lg border-2 border-white transition-all duration-300 ease-in-out ${isEnglish ? 'translate-x-7 bg-pink-300' : 'translate-x-0 bg-blue-300'
-                  }`}
-              ></div>
-            </button>
-            <style jsx>{`
-              @keyframes bounce-scale {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.1); }
-                100% { transform: scale(1); }
-              }
-              @keyframes wiggle-left {
-                0% { transform: translateX(0); }
-                50% { transform: translateX(-5px); }
-                100% { transform: translateX(0); }
-              }
-              @keyframes wiggle-right {
-                0% { transform: translateX(0); }
-                50% { transform: translateX(5px); }
-                100% { transform: translateX(0); }
-              }
-            `}</style>
-
-            <span
-              key={isEnglish ? `en-active` : `en-inactive`}
-              className={`text-sm font-bold transition-all ${isEnglish ? 'opacity-100 text-pink-300 animate-[wiggle-right_0.3s_ease-in-out]' : 'opacity-50 text-white'}`}
-            >
-              English
-            </span>
+        {/* Bottom row */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 text-xs text-[#a8a29e]">
+          <p>© 2026 FindingRoom. Built by 99%-from-AI Labs.</p>
+          <div className="flex items-center gap-6">
+            <Link href="/about" className="hover:text-[#4f46e5] transition-colors font-medium">Điều khoản</Link>
+            <Link href="/about" className="hover:text-[#4f46e5] transition-colors font-medium">Bảo mật</Link>
           </div>
         </div>
       </div>

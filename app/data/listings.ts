@@ -1,7 +1,7 @@
 import { collection, getDocs, doc, getDoc, query, where } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import { mockListings } from "./mockListings";
-import { RoomListing } from "./types";
+import { RoomListing, ListingCategory } from "./types";
 
 // Toggle between mock data and real Firestore data
 export const USE_MOCK_DATA = true;
@@ -24,9 +24,8 @@ function docToListing(docSnap: { id: string; data: () => Record<string, unknown>
     facebook: data.facebook as string | undefined,
     instagram: data.instagram as string | undefined,
     postedDate: data.postedDate as string,
-    category: data.category as "roommate" | "roomshare",
-    roommateType: data.roommateType as RoomListing["roommateType"],
-    propertyType: data.propertyType as RoomListing["propertyType"],
+    category: data.category as ListingCategory,
+    rentalType: data.rentalType as RoomListing["rentalType"],
     image: data.image as string | undefined,
     userId: data.userId as string | undefined,
     status: data.status as RoomListing["status"],
@@ -44,9 +43,9 @@ export async function getListings(): Promise<RoomListing[]> {
 }
 
 // Helper: Get category from ID prefix
-function getCategoryFromId(id: string): "roommate" | "roomshare" | null {
-  if (id.startsWith("rm-")) return "roommate";
-  if (id.startsWith("rs-")) return "roomshare";
+function getCategoryFromId(id: string): ListingCategory | null {
+  if (id.startsWith("ct-")) return "cho-thue";
+  if (id.startsWith("tp-")) return "tim-phong";
   return null;
 }
 
@@ -62,9 +61,9 @@ export async function getListingById(id: number | string): Promise<RoomListing |
     if (found) return found;
   } else {
     // No prefix, check both localStorage stores
-    const localRoommateListings = getLocalStorageListings("roommate");
-    const localRoomshareListings = getLocalStorageListings("roomshare");
-    const localListing = [...localRoommateListings, ...localRoomshareListings].find(l => l.id === idStr);
+    const localChoThueListings = getLocalStorageListings("cho-thue");
+    const localTimPhongListings = getLocalStorageListings("tim-phong");
+    const localListing = [...localChoThueListings, ...localTimPhongListings].find(l => l.id === idStr);
     if (localListing) {
       return localListing;
     }
@@ -86,7 +85,7 @@ export async function getListingById(id: number | string): Promise<RoomListing |
 }
 
 // Get listings by category
-export async function getListingsByCategory(category: "roommate" | "roomshare"): Promise<RoomListing[]> {
+export async function getListingsByCategory(category: ListingCategory): Promise<RoomListing[]> {
   if (USE_MOCK_DATA) {
     return mockListings.filter(listing => listing.category === category);
   }
@@ -104,11 +103,11 @@ export async function getListingsByCategory(category: "roommate" | "roomshare"):
 }
 
 // Helper: Get listings from localStorage (for dev/testing before Firestore integration)
-function getLocalStorageListings(category: "roommate" | "roomshare"): RoomListing[] {
+function getLocalStorageListings(category: ListingCategory): RoomListing[] {
   if (typeof window === "undefined") return [];
 
   try {
-    const storageKey = category === "roommate" ? "roommate_listings" : "roomshare_listings";
+    const storageKey = category === "cho-thue" ? "cho_thue_listings" : "tim_phong_listings";
     const stored = localStorage.getItem(storageKey);
     if (!stored) return [];
 
@@ -134,19 +133,17 @@ function getLocalStorageListings(category: "roommate" | "roomshare"): RoomListin
       instagram: item.contact?.instagram,
       postedDate: new Date(item.createdAt).toLocaleDateString("vi-VN"),
       category: category,
-      roommateType: item.type === "have-room" ? "have-room" : "find-partner",
-      propertyType: "apartment" as const,
+      rentalType: item.rentalType,
       userId: item.userId,
       status: "active" as const,
-      // New fields
       images: item.images,
       amenities: item.amenities,
       amenitiesOther: item.amenitiesOther,
       costs: item.costs,
-      preferences: item.preferences,
-      // Room details
+      tenantPreferences: item.tenantPreferences,
       roomSize: item.roomSize,
-      currentOccupants: item.currentOccupants,
+      floor: item.floor,
+      bathrooms: item.bathrooms,
       minContractDuration: item.minContractDuration,
       isDraft: item.isDraft,
     }));
@@ -158,7 +155,6 @@ function getLocalStorageListings(category: "roommate" | "roomshare"): RoomListin
 // Get listings by user ID
 export async function getListingsByUserId(userId: string): Promise<RoomListing[]> {
   if (USE_MOCK_DATA) {
-    // Filter mock listings by userId
     return mockListings.filter(listing => listing.userId === userId);
   }
 
@@ -168,9 +164,9 @@ export async function getListingsByUserId(userId: string): Promise<RoomListing[]
   const firestoreListings = querySnapshot.docs.map(docToListing);
 
   // Also get from localStorage (for dev/testing)
-  const localRoommateListings = getLocalStorageListings("roommate").filter(l => l.userId === userId);
-  const localRoomshareListings = getLocalStorageListings("roomshare").filter(l => l.userId === userId);
+  const localChoThueListings = getLocalStorageListings("cho-thue").filter(l => l.userId === userId);
+  const localTimPhongListings = getLocalStorageListings("tim-phong").filter(l => l.userId === userId);
 
   // Merge all sources
-  return [...localRoommateListings, ...localRoomshareListings, ...firestoreListings];
+  return [...localChoThueListings, ...localTimPhongListings, ...firestoreListings];
 }
