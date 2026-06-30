@@ -271,9 +271,10 @@ export default function ProfilePage() {
               </p>
             </div>
 
-            {/* Profile Info Card */}
+            {/* Combined Profile & Personal Info Card */}
             <div className="rounded-2xl border border-[#e8e4de] bg-white p-6 sm:p-8">
-              <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+              {/* Profile Header */}
+              <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between pb-8 border-b border-[#f0ede8]">
                 <div className="flex items-center gap-5">
                   {photoURL ? (
                     <img
@@ -300,37 +301,37 @@ export default function ProfilePage() {
                   Đăng xuất
                 </button>
               </div>
-            </div>
 
-            {/* Personal Info Section */}
-            <div className="mt-6 rounded-2xl border border-[#e8e4de] bg-white p-6 sm:p-8">
-              <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#f0ede8]">
-                <h3 className="text-lg font-bold text-zinc-900">Thông tin cá nhân</h3>
-                <button
-                  onClick={() => setShowEditProfileModal(true)}
-                  className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
-                >
-                  Chỉnh sửa
-                </button>
-              </div>
-
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {/* Giới tính */}
-                <div>
-                  <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Giới tính</p>
-                  <p className="text-base font-semibold text-zinc-800">{profileData?.gender || 'Chưa cập nhật'}</p>
+              {/* Personal Info Content */}
+              <div className="pt-8">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-bold text-zinc-900">Thông tin cá nhân</h3>
+                  <button
+                    onClick={() => setShowEditProfileModal(true)}
+                    className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                  >
+                    Chỉnh sửa
+                  </button>
                 </div>
 
-                {/* Năm sinh */}
-                <div>
-                  <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Năm sinh</p>
-                  <p className="text-base font-semibold text-zinc-800">{profileData?.birthYear || 'Chưa cập nhật'}</p>
-                </div>
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  {/* Giới tính */}
+                  <div>
+                    <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Giới tính</p>
+                    <p className="text-base font-semibold text-zinc-800">{profileData?.gender || 'Chưa cập nhật'}</p>
+                  </div>
 
-                {/* Nghề nghiệp */}
-                <div>
-                  <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Nghề nghiệp</p>
-                  <p className="text-base font-semibold text-zinc-800">{profileData?.occupation || 'Chưa cập nhật'}</p>
+                  {/* Năm sinh */}
+                  <div>
+                    <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Năm sinh</p>
+                    <p className="text-base font-semibold text-zinc-800">{profileData?.birthYear || 'Chưa cập nhật'}</p>
+                  </div>
+
+                  {/* Nghề nghiệp */}
+                  <div>
+                    <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Nghề nghiệp</p>
+                    <p className="text-base font-semibold text-zinc-800">{profileData?.occupation || 'Chưa cập nhật'}</p>
+                  </div>
                 </div>
               </div>
             </div>
