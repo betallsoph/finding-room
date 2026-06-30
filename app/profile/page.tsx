@@ -342,7 +342,7 @@ export default function ProfilePage() {
                 className="group flex items-center justify-between gap-4 rounded-2xl border border-pink-100 bg-pink-50/50 p-6 cursor-pointer hover:bg-pink-50 hover:border-pink-200 transition-all"
               >
                 <div>
-                  <h3 className="text-base font-bold text-zinc-900 group-hover:text-pink-500 transition-colors">
+                  <h3 className="text-base font-bold text-zinc-900 group-hover:!text-pink-500 transition-colors">
                     Bài đăng đã lưu
                   </h3>
                 </div>
@@ -356,7 +356,7 @@ export default function ProfilePage() {
                 className="group flex items-center justify-between gap-4 rounded-2xl border border-blue-100 bg-blue-50/50 p-6 cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all"
               >
                 <div>
-                  <h3 className="text-base font-bold text-zinc-900 group-hover:text-blue-500 transition-colors">
+                  <h3 className="text-base font-bold text-zinc-900 group-hover:!text-blue-500 transition-colors">
                     Hồ sơ lối sống
                   </h3>
                 </div>
