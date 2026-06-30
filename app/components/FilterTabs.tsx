@@ -41,9 +41,6 @@ export default function FilterTabs({ activeType, onTypeChange }: FilterTabsProps
         })}
       </div>
 
-      <p className="text-sm" style={{ color: "#78716c" }}>
-        {options.find(o => o.value === activeType)?.desc}
-      </p>
     </div>
   );
 }

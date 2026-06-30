@@ -22,7 +22,6 @@ export default function MainHeader() {
     { href: "/", label: "Trang chủ" },
     { href: "/cho-thue", label: "Phòng cho thuê" },
     { href: "/tim-phong", label: "Tìm phòng" },
-    { href: "https://roomieverse.blog/community", label: "Community" },
   ];
 
   return (
@@ -59,6 +58,13 @@ export default function MainHeader() {
 
           {/* Right: auth + mobile menu */}
           <div className="flex items-center gap-3">
+            <Link 
+              href="https://roomieverse.blog/community" 
+              className="hidden md:block px-3 py-1.5 rounded-full text-sm font-semibold text-[#57534e] hover:text-[#1c1917] transition-all duration-150 mr-1"
+            >
+              Community
+            </Link>
+
             {/* Auth button */}
             {isAuthenticated ? (
               <Link
@@ -109,6 +115,13 @@ export default function MainHeader() {
                 </Link>
               );
             })}
+            <Link
+              href="https://roomieverse.blog/community"
+              onClick={() => setMenuOpen(false)}
+              className="px-4 py-2.5 rounded-xl text-sm font-semibold text-[#57534e] hover:text-[#1c1917] transition-all"
+            >
+              Community
+            </Link>
             {isAuthenticated && (
               <button
                 onClick={() => { handleLogout(); setMenuOpen(false); }}

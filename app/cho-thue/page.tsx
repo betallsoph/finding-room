@@ -59,9 +59,6 @@ export default function ChoThuePage() {
           <h1 className="mb-6 text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl">
             Phòng cho thuê
           </h1>
-          <p className="mb-8 max-w-2xl text-base sm:text-lg text-zinc-700">
-            Tìm phòng trọ, căn hộ, nhà riêng tại TP.HCM. Chính chủ đăng, không qua môi giới.
-          </p>
 
           <FilterButtons
             mode={mode}
@@ -74,9 +71,6 @@ export default function ChoThuePage() {
 
         {/* Listing Header */}
         <div className="mb-8 space-y-3">
-          <span className="text-sm font-medium text-zinc-600">
-            {allFilteredListings.length} kết quả
-          </span>
           <h2 className="text-3xl font-bold">{rentalTypeLabels[mode]}</h2>
         </div>
 

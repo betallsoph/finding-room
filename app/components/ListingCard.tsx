@@ -86,12 +86,14 @@ export default function ListingCard({ listing, variant = "blue", layout = "grid"
       <div className="h-44 w-full bg-[#f5f5f4] flex items-center justify-center relative overflow-hidden">
         <Home className="h-16 w-16 text-[#d6d3d1]" strokeWidth={1} />
         {/* Category badge */}
-        <span
-          className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full"
-          style={{ background: accentBg, color: accentText }}
-        >
-          {isTimPhong ? "Tìm phòng" : "Cho thuê"}
-        </span>
+        {isTimPhong && (
+          <span
+            className="absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full"
+            style={{ background: accentBg, color: accentText }}
+          >
+            Tìm phòng
+          </span>
+        )}
         {/* Arrow icon on hover */}
         <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
           style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.12)" }}>

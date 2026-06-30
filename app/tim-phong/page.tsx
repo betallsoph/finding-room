@@ -61,9 +61,6 @@ export default function TimPhongPage() {
           <h1 className="mb-6 text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl">
             Người tìm phòng
           </h1>
-          <p className="mb-8 max-w-2xl text-base sm:text-lg text-zinc-700">
-            Kết nối trực tiếp với người tìm thuê. Xem yêu cầu và liên hệ ngay — không qua môi giới.
-          </p>
 
           <FilterTabs
             activeType={activeType}
@@ -76,9 +73,6 @@ export default function TimPhongPage() {
 
         {/* Listing Header */}
         <div className="mb-8 space-y-3">
-          <span className="text-sm font-medium text-zinc-600">
-            {allFilteredListings.length} kết quả
-          </span>
           <h2 className="text-3xl font-bold">{propertyTypeLabels[activeType]}</h2>
         </div>
 

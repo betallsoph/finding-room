@@ -40,9 +40,6 @@ export default function FilterButtons({ mode, onModeChange }: FilterButtonsProps
         })}
       </div>
 
-      <p className="text-sm" style={{ color: "#78716c" }}>
-        {rentalTypeOptions.find(o => o.value === mode)?.desc}
-      </p>
     </div>
   );
 }
