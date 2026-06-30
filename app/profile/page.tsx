@@ -274,7 +274,7 @@ export default function ProfilePage() {
             {/* Combined Profile & Personal Info Card */}
             <div className="rounded-2xl border border-[#e8e4de] bg-white p-6 sm:p-8">
               {/* Profile Header */}
-              <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between pb-8 border-b border-[#f0ede8]">
+              <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
                 <div className="flex items-center gap-5">
                   {photoURL ? (
                     <img
@@ -294,26 +294,25 @@ export default function ProfilePage() {
                     )}
                   </div>
                 </div>
-                <button
-                  onClick={handleLogout}
-                  className="rounded-full px-6 py-2.5 text-sm font-semibold text-red-600 bg-red-50 hover:bg-red-100 transition-colors"
-                >
-                  Đăng xuất
-                </button>
-              </div>
 
-              {/* Personal Info Content */}
-              <div className="pt-8">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-bold text-zinc-900">Thông tin cá nhân</h3>
+                <div className="flex flex-col gap-3 w-full sm:w-auto">
+                  <button
+                    onClick={handleLogout}
+                    className="rounded-full px-6 py-2.5 text-sm font-semibold text-red-600 bg-red-50 hover:bg-red-100 transition-colors w-full sm:w-auto"
+                  >
+                    Đăng xuất
+                  </button>
                   <button
                     onClick={() => setShowEditProfileModal(true)}
-                    className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+                    className="rounded-full px-6 py-2.5 text-sm font-semibold text-zinc-700 bg-zinc-100 hover:bg-zinc-200 transition-colors w-full sm:w-auto"
                   >
                     Chỉnh sửa
                   </button>
                 </div>
+              </div>
 
+              {/* Personal Info Content */}
+              <div className="mt-8">
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {/* Giới tính */}
                   <div>
