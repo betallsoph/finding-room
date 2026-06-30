@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { SparklesText } from "./components/sparkles-text";
 import MainHeader from "./components/MainHeader";
 import ShareFooter from "./components/ShareFooter";
 import ProfileReminderModal from "./components/ProfileReminderModal";
 import { useProfileReminder } from "./hooks/useProfileReminder";
-import { Search, Home, MessageCircle, ArrowRight, MapPin, ShieldCheck, Star, BadgeCheck, Clock, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, Home, MessageCircle, ArrowRight, MapPin, ShieldCheck, ChevronLeft, ChevronRight } from "lucide-react";
 
 const ListingCard = ({ image, title, price, location }: any) => (
   <Link href="#" className="block bg-white rounded-2xl border border-[#e8e4de] overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
@@ -50,53 +49,6 @@ export default function LandingPage() {
       <MainHeader />
       <ProfileReminderModal isOpen={showReminder} onClose={dismissReminder} />
 
-      {/* ── Hero ──────────────────────────────────────────── */}
-      <section
-        className="relative overflow-hidden"
-        style={{
-          background: "linear-gradient(135deg, #eef2ff 0%, #fff1f2 50%, #faf9f7 100%)",
-          paddingTop: "80px",
-          paddingBottom: "96px",
-        }}
-      >
-        {/* Decorative blobs */}
-        <div aria-hidden className="absolute -top-24 -left-24 w-96 h-96 rounded-full opacity-30 pointer-events-none"
-          style={{ background: "radial-gradient(circle, #c7d2fe 0%, transparent 70%)" }} />
-        <div aria-hidden className="absolute -bottom-12 -right-12 w-72 h-72 rounded-full opacity-20 pointer-events-none"
-          style={{ background: "radial-gradient(circle, #fecdd3 0%, transparent 70%)" }} />
-
-        <div className="wrapper relative z-10 text-center">
-
-
-          <h1 className="mb-6 font-bold leading-tight text-[#1c1917] max-w-3xl mx-auto">
-            Tìm phòng thuê{" "}
-            <SparklesText
-              className="font-bold"
-              sparklesCount={12}
-              colors={{ first: "#6366f1", second: "#f43f5e" }}
-            >
-              dễ dàng.
-            </SparklesText>
-            <br className="hidden sm:block" />
-            Kết nối thẳng chủ nhà.
-          </h1>
-
-
-
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-            <Link href="/cho-thue" className="btn-primary text-base px-8 py-4 flex items-center gap-2">
-              <Home className="w-4 h-4" />
-              Xem phòng cho thuê
-            </Link>
-            <Link href="/tim-phong" className="btn-pink text-base px-8 py-4 flex items-center gap-2">
-              <Search className="w-4 h-4" />
-              Đăng tìm phòng
-            </Link>
-          </div>
-
-
-        </div>
-      </section>
 
 
 
@@ -106,7 +58,6 @@ export default function LandingPage() {
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-2">
               <h2 className="text-2xl font-bold">Tin ưu tiên</h2>
-              <Star className="w-7 h-7" />
             </div>
             
             <div className="hidden md:flex gap-2">
@@ -171,7 +122,6 @@ export default function LandingPage() {
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-2">
               <h2 className="text-2xl font-bold">Dự án nổi bật / Tài trợ</h2>
-              <BadgeCheck className="w-7 h-7" />
             </div>
             <div className="hidden md:flex gap-2">
               <button 
@@ -245,7 +195,6 @@ export default function LandingPage() {
           <div className="flex justify-between items-end mb-8">
             <div className="flex items-center gap-2">
               <h2 className="text-2xl font-bold">Tin mới đăng</h2>
-              <Clock className="w-7 h-7" />
             </div>
             <Link href="/cho-thue" className="text-sm font-semibold text-[#4f46e5] hover:underline flex items-center gap-1">
               Xem tất cả <ArrowRight className="w-4 h-4" />
