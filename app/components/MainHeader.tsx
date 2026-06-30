@@ -22,8 +22,7 @@ export default function MainHeader() {
     { href: "/", label: "Trang chủ" },
     { href: "/cho-thue", label: "Phòng cho thuê" },
     { href: "/tim-phong", label: "Tìm phòng" },
-    { href: "/whats-hot", label: "What's Hot" },
-    { href: "/community", label: "Community" },
+    { href: "https://roomieverse.blog/community", label: "Community" },
   ];
 
   return (

@@ -56,7 +56,7 @@ export default function TimPhongPage() {
       <ProfileReminderModal isOpen={showReminder} onClose={dismissReminder} />
 
       {/* Hero Section */}
-      <section className="py-16 sm:py-24" style={{ background: "linear-gradient(135deg, #fff1f2 0%, #f5f5f4 100%)" }}>
+      <section className="py-10 sm:py-14" style={{ background: "linear-gradient(135deg, #fff1f2 0%, #f5f5f4 100%)" }}>
         <div className="mx-auto max-w-7xl px-6">
           <h1 className="mb-6 text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl">
             Người tìm phòng
@@ -72,9 +72,7 @@ export default function TimPhongPage() {
         </div>
       </section>
 
-      <div className="h-10 bg-gradient-to-b from-[#fff1f2]/30 to-[#faf9f7]" />
-
-      <div className="mx-auto max-w-7xl px-6 pb-16">
+      <div className="mx-auto max-w-7xl px-6 pb-16 pt-10">
 
         {/* Listing Header */}
         <div className="mb-8 space-y-3">
