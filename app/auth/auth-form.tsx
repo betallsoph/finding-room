@@ -31,8 +31,8 @@ export default function AuthForm({ bounceKey = 0, onModeChange }: AuthFormProps)
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // TODO: Implement email/password auth with Firebase
-    setError("Email/Password chưa được hỗ trợ. Vui lòng đăng nhập bằng Google.");
+    // Bypassing real auth: Just use the mock Google login logic
+    handleGoogleLogin();
   }
 
   async function handleGoogleLogin() {

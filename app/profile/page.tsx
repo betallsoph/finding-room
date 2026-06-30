@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import MainHeader from "../components/MainHeader";
 import ShareFooter from "../components/ShareFooter";
 import ProtectedRoute from "../components/ProtectedRoute";
@@ -11,7 +10,7 @@ import EditProfileModal from "../components/EditProfileModal";
 import PostTypeModal from "../components/PostTypeModal";
 import { useAuth } from "../contexts/AuthContext";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Heart, Loader2, Sparkles } from "lucide-react";
+import { Heart, Loader2, Sparkles, MapPin, Calendar } from "lucide-react";
 import { getUserProfile, saveUserProfile } from "../data/users";
 import { getListingsByUserId } from "../data/listings";
 import { UserProfile, RoomListing } from "../data/types";
@@ -39,6 +38,55 @@ export default function ProfilePage() {
       }
 
       setIsLoading(true);
+
+      // --- MOCK PROFILE BYPASS ---
+      if (user.uid === "mock-user-123") {
+        setProfileData({
+          uid: user.uid,
+          email: "chloe.tran@example.com",
+          displayName: "Chloe Tran",
+          photoURL: "https://api.dicebear.com/7.x/notionists/svg?seed=Chloe",
+          gender: "Nữ",
+          birthYear: "1999",
+          occupation: "Designer / UI UX",
+        });
+        
+        // Mock listings
+        setMyListings([
+          {
+            id: "ct-101",
+            title: "Pass lại phòng trọ full nội thất, ban công chill Q. Phú Nhuận",
+            author: "Chloe Tran",
+            price: "4.5 Triệu/tháng",
+            location: "Quận Phú Nhuận, TP.HCM",
+            moveInDate: "Tới ở liền",
+            description: "Do chuyển công tác nên mình cần pass lại phòng. Phòng cực rộng rãi mát mẻ, có sẵn giường tủ nệm, máy lạnh, tủ lạnh con...",
+            phone: "0901234567",
+            postedDate: "2 ngày trước",
+            rentalType: "nha-tro",
+            status: "active",
+            category: "cho-thue"
+          },
+          {
+            id: "tp-202",
+            title: "Tìm 1 bạn nữ ở ghép, chung cư cao cấp Novaland Q4",
+            author: "Chloe Tran",
+            price: "Share 3.5 Triệu/tháng",
+            location: "Quận 4, TP.HCM",
+            moveInDate: "Tháng sau",
+            description: "Mình đang thuê nguyên căn hộ 2PN, cần tìm 1 bạn nữ vô ở chung share tiền phòng. Yêu cầu sạch sẽ, gọn gàng, tôn trọng không gian chung.",
+            phone: "0901234567",
+            postedDate: "1 tuần trước",
+            propertyTypes: ["can-ho"],
+            status: "active",
+            category: "tim-phong"
+          }
+        ]);
+        
+        setIsLoading(false);
+        return;
+      }
+      // --- END MOCK BYPASS ---
 
       try {
         // Load profile from Firestore
@@ -212,45 +260,42 @@ export default function ProfilePage() {
         />
 
         {/* Hero Section */}
-        <section className="bg-blue-50 py-16 sm:py-24 relative before:absolute before:bottom-0 before:left-0 before:right-0 before:h-20 before:bg-gradient-to-b before:from-transparent before:to-white before:pointer-events-none">
+        <section className="bg-[#faf9f7] py-10 sm:py-14 border-b border-[#f0ede8]">
           <div className="mx-auto max-w-7xl px-6">
-
             <div className="mb-8">
-              <h1 className="mb-4 text-4xl font-extrabold leading-tight sm:text-5xl md:text-6xl">
+              <h1 className="mb-2 text-3xl font-extrabold leading-tight sm:text-4xl">
                 Hồ sơ của bạn
               </h1>
-              <p className="max-w-2xl text-base sm:text-lg text-zinc-700">
+              <p className="text-base text-zinc-600">
                 Quản lý thông tin cá nhân và các bài đăng của bạn
               </p>
             </div>
 
             {/* Profile Info Card */}
-            <div className="rounded-xl border-[6px] border-black bg-white p-8">
+            <div className="rounded-2xl border border-[#e8e4de] bg-white p-6 sm:p-8" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
               <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-5">
                   {photoURL ? (
-                    <Image
+                    <img
                       src={photoURL}
                       alt={displayName}
-                      width={80}
-                      height={80}
-                      className="h-20 w-20 rounded-full border-2 border-black object-cover"
+                      className="h-20 w-20 rounded-full object-cover shadow-sm border border-[#e8e4de]"
                     />
                   ) : (
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-black bg-blue-300 text-3xl font-bold">
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-blue-100 text-blue-600 text-3xl font-bold">
                       {displayName.charAt(0).toUpperCase()}
                     </div>
                   )}
                   <div>
-                    <h2 className="text-2xl font-bold">{displayName}</h2>
+                    <h2 className="text-2xl font-bold text-zinc-900">{displayName}</h2>
                     {user?.email && (
-                      <p className="text-sm text-zinc-500">{user.email}</p>
+                      <p className="text-sm font-medium text-zinc-500 mt-1">{user.email}</p>
                     )}
                   </div>
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="btn-red btn-click-sink text-base px-6 py-3"
+                  className="rounded-full px-6 py-2.5 text-sm font-semibold text-red-600 bg-red-50 hover:bg-red-100 transition-colors"
                 >
                   Đăng xuất
                 </button>
@@ -258,12 +303,12 @@ export default function ProfilePage() {
             </div>
 
             {/* Personal Info Section */}
-            <div className="mt-6 card bg-white p-8">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-bold">Thông tin cá nhân</h3>
+            <div className="mt-6 rounded-2xl border border-[#e8e4de] bg-white p-6 sm:p-8" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
+              <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#f0ede8]">
+                <h3 className="text-lg font-bold text-zinc-900">Thông tin cá nhân</h3>
                 <button
                   onClick={() => setShowEditProfileModal(true)}
-                  className="btn-secondary text-sm px-4 py-2"
+                  className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
                 >
                   Chỉnh sửa
                 </button>
@@ -272,20 +317,20 @@ export default function ProfilePage() {
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {/* Giới tính */}
                 <div>
-                  <p className="text-sm text-zinc-500 mb-1">Giới tính</p>
-                  <p className="text-base font-medium">{profileData?.gender || 'Chưa cập nhật'}</p>
+                  <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Giới tính</p>
+                  <p className="text-base font-semibold text-zinc-800">{profileData?.gender || 'Chưa cập nhật'}</p>
                 </div>
 
                 {/* Năm sinh */}
                 <div>
-                  <p className="text-sm text-zinc-500 mb-1">Năm sinh</p>
-                  <p className="text-base font-medium">{profileData?.birthYear || 'Chưa cập nhật'}</p>
+                  <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Năm sinh</p>
+                  <p className="text-base font-semibold text-zinc-800">{profileData?.birthYear || 'Chưa cập nhật'}</p>
                 </div>
 
                 {/* Nghề nghiệp */}
                 <div>
-                  <p className="text-sm text-zinc-500 mb-1">Nghề nghiệp hiện tại</p>
-                  <p className="text-base font-medium">{profileData?.occupation || 'Chưa cập nhật'}</p>
+                  <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Nghề nghiệp</p>
+                  <p className="text-base font-semibold text-zinc-800">{profileData?.occupation || 'Chưa cập nhật'}</p>
                 </div>
               </div>
             </div>
@@ -294,39 +339,35 @@ export default function ProfilePage() {
             <div className="mt-6 grid gap-4 sm:grid-cols-1 lg:grid-cols-2">
               <div
                 onClick={() => setTimeout(() => router.push('/favorites'), 150)}
-                className="card bg-pink-100 p-6 hover:bg-pink-200 transition-all group shadow-[4px_4px_0_0_#000] btn-click-sink cursor-pointer"
+                className="group flex items-center gap-4 rounded-2xl border border-pink-100 bg-pink-50/50 p-6 cursor-pointer hover:bg-pink-50 hover:border-pink-200 transition-all"
               >
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-pink-300 border-2 border-black transition-transform group-hover:scale-110">
-                    <Heart className="h-6 w-6 fill-current text-pink-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold group-hover:text-pink-600 transition-colors">
-                      Yêu thích của tôi
-                    </h3>
-                    <p className="text-sm text-zinc-600">
-                      Xem các bài đăng đã lưu
-                    </p>
-                  </div>
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-pink-100 text-pink-500 group-hover:scale-105 transition-transform">
+                  <Heart className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-zinc-900 group-hover:text-pink-600 transition-colors">
+                    Yêu thích của tôi
+                  </h3>
+                  <p className="text-sm text-zinc-600 mt-0.5">
+                    Xem các bài đăng đã lưu
+                  </p>
                 </div>
               </div>
 
               <div
                 onClick={() => setTimeout(() => router.push('/profile/lifestyle'), 150)}
-                className="card bg-blue-100 p-6 hover:bg-blue-200 transition-all group shadow-[4px_4px_0_0_#000] btn-click-sink cursor-pointer"
+                className="group flex items-center gap-4 rounded-2xl border border-blue-100 bg-blue-50/50 p-6 cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all"
               >
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-300 border-2 border-black transition-transform group-hover:scale-110">
-                    <Sparkles className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold group-hover:text-blue-600 transition-colors">
-                      Hồ sơ lối sống
-                    </h3>
-                    <p className="text-sm text-zinc-600">
-                      Thói quen & sở thích của bạn
-                    </p>
-                  </div>
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-500 group-hover:scale-105 transition-transform">
+                  <Sparkles className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-zinc-900 group-hover:text-blue-600 transition-colors">
+                    Hồ sơ lối sống
+                  </h3>
+                  <p className="text-sm text-zinc-600 mt-0.5">
+                    Thói quen & sở thích của bạn
+                  </p>
                 </div>
               </div>
             </div>
@@ -334,13 +375,13 @@ export default function ProfilePage() {
         </section>
 
         {/* Listings Section */}
-        <section className="py-16">
+        <section className="py-12 bg-white">
           <div className="mx-auto max-w-7xl px-6">
             <div className="mb-8 flex items-center justify-between">
-              <h2 className="text-3xl font-bold">Bài đăng của tôi</h2>
+              <h2 className="text-2xl font-bold text-zinc-900">Bài đăng của tôi</h2>
               <button
                 onClick={() => setShowPostTypeModal(true)}
-                className="btn-primary text-base px-6 py-3"
+                className="rounded-full bg-[#4f46e5] hover:bg-[#4338ca] text-white text-sm font-semibold px-5 py-2.5 transition-all shadow-sm"
               >
                 Đăng bài mới
               </button>
@@ -352,54 +393,51 @@ export default function ProfilePage() {
                 {myListings.map((listing) => {
                   const statusDisplay = getStatusDisplay(listing.status);
                   return (
-                    <div key={listing.id} className="card bg-white p-6">
+                    <div key={listing.id} className="rounded-2xl border border-[#e8e4de] bg-white p-6 hover:shadow-[0_4px_20px_rgba(0,0,0,0.06)] transition-all">
                       <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
                         <div className="flex-1">
                           <div className="mb-2 flex items-center gap-2">
                             <Link
                               href={`/listing/${listing.id}`}
-                              className="text-xl font-bold hover:text-blue-600 transition-colors"
+                              className="text-lg font-bold text-zinc-900 hover:text-blue-600 transition-colors line-clamp-1"
                             >
                               {listing.title}
                             </Link>
-                            <span className={`rounded-md border-2 border-black ${statusDisplay.color} px-2 py-1 text-xs font-bold`}>
+                            <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${statusDisplay.color.replace('bg-', 'bg-').replace('200', '100')} text-zinc-700`}>
                               {statusDisplay.text}
                             </span>
                           </div>
-                          <div className="flex flex-wrap gap-3 text-sm text-zinc-600">
-                            <span>{listing.location}</span>
-                            <span>{listing.moveInDate}</span>
-                            <span>{listing.postedDate}</span>
+                          <div className="flex flex-wrap gap-4 text-sm text-zinc-500">
+                            <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {listing.location}</span>
+                            <span className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {listing.moveInDate}</span>
                           </div>
                         </div>
-                        <Link
-                          href={`/listing/${listing.id}`}
-                          className="rounded-lg border-2 border-black bg-blue-300 px-4 py-2 font-bold hover:shadow-[var(--shadow-secondary)] transition-all"
-                        >
-                          {listing.price}
-                        </Link>
+                        <div className="flex-shrink-0 text-right">
+                          <span className="inline-block rounded-full bg-blue-50 text-blue-700 px-3 py-1.5 text-sm font-bold">
+                            {listing.price}
+                          </span>
+                        </div>
                       </div>
 
-                      <Link href={`/listing/${listing.id}`}>
-                        <p className="mb-4 text-sm text-zinc-700 hover:text-zinc-900 transition-colors cursor-pointer">
-                          {listing.description}
-                        </p>
-                      </Link>
+                      <p className="mb-5 text-sm text-zinc-600 line-clamp-2">
+                        {listing.description}
+                      </p>
 
-                      <div className="flex flex-wrap gap-3">
-                        <button className="btn-primary text-sm px-4 py-2">
+                      <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-[#f5f5f4]">
+                        <button className="rounded-full px-4 py-1.5 text-sm font-medium text-[#4f46e5] bg-[#eef2ff] hover:bg-blue-100 transition-colors">
                           Chỉnh sửa
                         </button>
                         <Link
                           href={`/listing/${listing.id}`}
-                          className="btn-secondary text-sm px-4 py-2"
+                          className="rounded-full px-4 py-1.5 text-sm font-medium text-zinc-700 bg-zinc-100 hover:bg-zinc-200 transition-colors"
                         >
                           Xem chi tiết
                         </Link>
-                        <button className="btn-secondary text-sm px-4 py-2">
+                        <div className="flex-1"></div>
+                        <button className="rounded-full px-4 py-1.5 text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 transition-colors">
                           Tạm ẩn
                         </button>
-                        <button className="btn-gray text-sm px-4 py-2">
+                        <button className="rounded-full px-4 py-1.5 text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50 transition-colors">
                           Xóa
                         </button>
                       </div>
@@ -408,8 +446,15 @@ export default function ProfilePage() {
                 })}
               </div>
             ) : (
-              <div className="card bg-white p-12 text-center">
-                <h3 className="text-2xl font-bold">Chưa có bài đăng nào</h3>
+              <div className="rounded-2xl border border-dashed border-[#d6d3d1] bg-[#faf9f7] p-12 text-center">
+                <h3 className="text-lg font-bold text-zinc-900 mb-2">Chưa có bài đăng nào</h3>
+                <p className="text-zinc-500 mb-6">Bạn chưa tạo bài đăng cho thuê hoặc tìm phòng nào.</p>
+                <button
+                  onClick={() => setShowPostTypeModal(true)}
+                  className="rounded-full bg-white border border-[#e8e4de] text-zinc-800 text-sm font-semibold px-6 py-2.5 hover:bg-zinc-50 transition-all shadow-sm"
+                >
+                  Đăng bài đầu tiên
+                </button>
               </div>
             )}
           </div>
