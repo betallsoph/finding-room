@@ -263,12 +263,9 @@ export default function ProfilePage() {
         <section className="bg-[#faf9f7] py-10 sm:py-14 border-b border-[#f0ede8]">
           <div className="mx-auto max-w-7xl px-6">
             <div className="mb-8">
-              <h1 className="mb-2 text-3xl font-extrabold leading-tight sm:text-4xl">
+              <h1 className="text-3xl font-extrabold leading-tight sm:text-4xl">
                 Hồ sơ của bạn
               </h1>
-              <p className="text-base text-zinc-600">
-                Quản lý thông tin cá nhân và các bài đăng của bạn
-              </p>
             </div>
 
             {/* Combined Profile & Personal Info Card */}
@@ -316,19 +313,19 @@ export default function ProfilePage() {
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {/* Giới tính */}
                   <div>
-                    <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Giới tính</p>
+                    <p className="text-sm font-medium text-zinc-500 mb-1">Giới tính</p>
                     <p className="text-base font-semibold text-zinc-800">{profileData?.gender || 'Chưa cập nhật'}</p>
                   </div>
 
                   {/* Năm sinh */}
                   <div>
-                    <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Năm sinh</p>
+                    <p className="text-sm font-medium text-zinc-500 mb-1">Năm sinh</p>
                     <p className="text-base font-semibold text-zinc-800">{profileData?.birthYear || 'Chưa cập nhật'}</p>
                   </div>
 
                   {/* Nghề nghiệp */}
                   <div>
-                    <p className="text-xs font-medium text-zinc-500 uppercase tracking-wider mb-1.5">Nghề nghiệp</p>
+                    <p className="text-sm font-medium text-zinc-500 mb-1">Nghề nghiệp</p>
                     <p className="text-base font-semibold text-zinc-800">{profileData?.occupation || 'Chưa cập nhật'}</p>
                   </div>
                 </div>
