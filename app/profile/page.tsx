@@ -262,11 +262,7 @@ export default function ProfilePage() {
         {/* Hero Section */}
         <section className="bg-[#faf9f7] py-10 sm:py-14 border-b border-[#f0ede8]">
           <div className="mx-auto max-w-7xl px-6">
-            <div className="mb-8">
-              <h1 className="text-3xl font-extrabold leading-tight sm:text-4xl">
-                Hồ sơ của bạn
-              </h1>
-            </div>
+
 
             {/* Combined Profile & Personal Info Card */}
             <div className="rounded-2xl border border-[#e8e4de] bg-white p-6 sm:p-8">
