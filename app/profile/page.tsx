@@ -292,16 +292,16 @@ export default function ProfilePage() {
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-3 w-full sm:w-auto sm:text-right items-start sm:items-end">
+                <div className="flex flex-row gap-5 w-full sm:w-auto items-center sm:justify-end">
                   <button
                     onClick={handleLogout}
-                    className="text-sm font-semibold text-red-600 hover:scale-110 origin-left sm:origin-right transition-all text-left sm:text-right"
+                    className="text-sm font-semibold text-red-600 hover:scale-110 origin-center transition-all"
                   >
                     Đăng xuất
                   </button>
                   <button
                     onClick={() => setShowEditProfileModal(true)}
-                    className="text-sm font-semibold text-blue-600 hover:scale-110 origin-left sm:origin-right transition-all text-left sm:text-right"
+                    className="text-sm font-semibold text-blue-600 hover:scale-110 origin-center transition-all"
                   >
                     Chỉnh sửa
                   </button>
