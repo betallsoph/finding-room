@@ -270,63 +270,66 @@ export default function ProfilePage() {
 
             {/* Combined Profile & Personal Info Card */}
             <div className="rounded-2xl border border-[#e8e4de] bg-white p-6 sm:p-8">
-              {/* Profile Header */}
-              <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-                <div className="flex items-center gap-5">
+              <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 sm:items-center">
+                {/* Left: Avatar */}
+                <div className="flex-shrink-0 flex justify-center sm:justify-start">
                   {photoURL ? (
                     <img
                       src={photoURL}
                       alt={displayName}
-                      className="h-20 w-20 rounded-full object-cover shadow-sm border border-[#e8e4de]"
+                      className="h-24 w-24 sm:h-32 sm:w-32 rounded-full object-cover shadow-sm border border-[#e8e4de]"
                     />
                   ) : (
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-blue-100 text-blue-600 text-3xl font-bold">
+                    <div className="flex h-24 w-24 sm:h-32 sm:w-32 items-center justify-center rounded-full bg-blue-100 text-blue-600 text-4xl font-bold">
                       {displayName.charAt(0).toUpperCase()}
                     </div>
                   )}
-                  <div>
-                    <h2 className="text-2xl font-bold text-zinc-900">{displayName}</h2>
-                    {user?.email && (
-                      <p className="text-sm font-medium text-zinc-500 mt-1">{user.email}</p>
-                    )}
-                  </div>
                 </div>
 
-                <div className="flex flex-row gap-5 w-full sm:w-auto items-center sm:justify-end">
-                  <button
-                    onClick={handleLogout}
-                    className="text-sm font-semibold text-red-600 hover:scale-110 origin-center transition-all"
-                  >
-                    Đăng xuất
-                  </button>
-                  <button
-                    onClick={() => setShowEditProfileModal(true)}
-                    className="text-sm font-semibold text-blue-600 hover:scale-110 origin-center transition-all"
-                  >
-                    Chỉnh sửa
-                  </button>
-                </div>
-              </div>
-
-              {/* Personal Info Content */}
-              <div className="mt-8">
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {/* Giới tính */}
-                  <div>
-                    <p className="text-sm font-medium text-zinc-500 mb-1">Giới tính</p>
-                    <p className="text-base font-semibold text-zinc-800">{profileData?.gender || 'Chưa cập nhật'}</p>
+                {/* Right: Info & Actions */}
+                <div className="flex-1 w-full">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="text-center sm:text-left">
+                      <h2 className="text-2xl font-bold text-zinc-900">{displayName}</h2>
+                      {user?.email && (
+                        <p className="text-sm font-medium text-zinc-500 mt-1">{user.email}</p>
+                      )}
+                    </div>
+                    
+                    <div className="flex flex-row gap-5 w-full sm:w-auto justify-center sm:justify-end items-center">
+                      <button
+                        onClick={handleLogout}
+                        className="text-sm font-semibold text-red-600 hover:scale-110 origin-center transition-all"
+                      >
+                        Đăng xuất
+                      </button>
+                      <button
+                        onClick={() => setShowEditProfileModal(true)}
+                        className="text-sm font-semibold text-blue-600 hover:scale-110 origin-center transition-all"
+                      >
+                        Chỉnh sửa
+                      </button>
+                    </div>
                   </div>
 
-                  {/* Năm sinh */}
-                  <div>
-                    <p className="text-sm font-medium text-zinc-500 mb-1">Năm sinh</p>
-                    <p className="text-base font-semibold text-zinc-800">{profileData?.birthYear || 'Chưa cập nhật'}</p>
-                  </div>
+                  <div className="mt-8 grid gap-6 grid-cols-2 sm:grid-cols-3 text-center sm:text-left">
+                    {/* Giới tính */}
+                    <div>
+                      <p className="text-sm font-medium text-zinc-500 mb-1">Giới tính</p>
+                      <p className="text-base font-semibold text-zinc-800">{profileData?.gender || 'Chưa cập nhật'}</p>
+                    </div>
 
-                  {/* Nghề nghiệp */}
-                  <div>
-                    <p className="text-sm font-medium text-zinc-500 mb-1">Nghề nghiệp</p>
-                    <p className="text-base font-semibold text-zinc-800">{profileData?.occupation || 'Chưa cập nhật'}</p>
+                    {/* Năm sinh */}
+                    <div>
+                      <p className="text-sm font-medium text-zinc-500 mb-1">Năm sinh</p>
+                      <p className="text-base font-semibold text-zinc-800">{profileData?.birthYear || 'Chưa cập nhật'}</p>
+                    </div>
+
+                    {/* Nghề nghiệp */}
+                    <div className="col-span-2 sm:col-span-1">
+                      <p className="text-sm font-medium text-zinc-500 mb-1">Nghề nghiệp</p>
+                      <p className="text-base font-semibold text-zinc-800">{profileData?.occupation || 'Chưa cập nhật'}</p>
+                    </div>
                   </div>
                 </div>
               </div>
