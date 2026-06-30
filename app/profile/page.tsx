@@ -10,7 +10,7 @@ import EditProfileModal from "../components/EditProfileModal";
 import PostTypeModal from "../components/PostTypeModal";
 import { useAuth } from "../contexts/AuthContext";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Heart, Loader2, Sparkles, MapPin, Calendar } from "lucide-react";
+import { Heart, Loader2, BookOpen, MapPin, Calendar } from "lucide-react";
 import { getUserProfile, saveUserProfile } from "../data/users";
 import { getListingsByUserId } from "../data/listings";
 import { UserProfile, RoomListing } from "../data/types";
@@ -272,7 +272,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Profile Info Card */}
-            <div className="rounded-2xl border border-[#e8e4de] bg-white p-6 sm:p-8" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
+            <div className="rounded-2xl border border-[#e8e4de] bg-white p-6 sm:p-8">
               <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-5">
                   {photoURL ? (
@@ -303,7 +303,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Personal Info Section */}
-            <div className="mt-6 rounded-2xl border border-[#e8e4de] bg-white p-6 sm:p-8" style={{ boxShadow: "0 2px 12px rgba(0,0,0,0.04)" }}>
+            <div className="mt-6 rounded-2xl border border-[#e8e4de] bg-white p-6 sm:p-8">
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#f0ede8]">
                 <h3 className="text-lg font-bold text-zinc-900">Thông tin cá nhân</h3>
                 <button
@@ -339,11 +339,8 @@ export default function ProfilePage() {
             <div className="mt-6 grid gap-4 sm:grid-cols-1 lg:grid-cols-2">
               <div
                 onClick={() => setTimeout(() => router.push('/favorites'), 150)}
-                className="group flex items-center gap-4 rounded-2xl border border-pink-100 bg-pink-50/50 p-6 cursor-pointer hover:bg-pink-50 hover:border-pink-200 transition-all"
+                className="group flex items-center justify-between gap-4 rounded-2xl border border-pink-100 bg-pink-50/50 p-6 cursor-pointer hover:bg-pink-50 hover:border-pink-200 transition-all"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-pink-100 text-pink-500 group-hover:scale-105 transition-transform">
-                  <Heart className="h-6 w-6" />
-                </div>
                 <div>
                   <h3 className="text-base font-bold text-zinc-900 group-hover:text-pink-600 transition-colors">
                     Yêu thích của tôi
@@ -352,15 +349,15 @@ export default function ProfilePage() {
                     Xem các bài đăng đã lưu
                   </p>
                 </div>
+                <div className="text-pink-300 group-hover:text-pink-500 group-hover:scale-110 transition-all">
+                  <Heart className="h-8 w-8" />
+                </div>
               </div>
 
               <div
                 onClick={() => setTimeout(() => router.push('/profile/lifestyle'), 150)}
-                className="group flex items-center gap-4 rounded-2xl border border-blue-100 bg-blue-50/50 p-6 cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all"
+                className="group flex items-center justify-between gap-4 rounded-2xl border border-blue-100 bg-blue-50/50 p-6 cursor-pointer hover:bg-blue-50 hover:border-blue-200 transition-all"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-500 group-hover:scale-105 transition-transform">
-                  <Sparkles className="h-6 w-6" />
-                </div>
                 <div>
                   <h3 className="text-base font-bold text-zinc-900 group-hover:text-blue-600 transition-colors">
                     Hồ sơ lối sống
@@ -368,6 +365,9 @@ export default function ProfilePage() {
                   <p className="text-sm text-zinc-600 mt-0.5">
                     Thói quen & sở thích của bạn
                   </p>
+                </div>
+                <div className="text-blue-300 group-hover:text-blue-500 group-hover:scale-110 transition-all">
+                  <BookOpen className="h-8 w-8" />
                 </div>
               </div>
             </div>
